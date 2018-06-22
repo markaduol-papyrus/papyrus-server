@@ -1,0 +1,21 @@
+{
+  "name": "papyrus-server",
+  "version": "1.0.0",
+  "description": "Server-side application that facilitates peer discovery for collaborative editing sessions in Papyrus.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.doc.ic.ac.uk:ma7614/papyrus-server.git"
+  },
+  "keywords": [
+    "Server",
+    "Distributed",
+    "Server-Side",
+    "Collaborative-Editor"
+  ],
+  "author": "Mark Aduol",
+  "license": "MIT"
+}
