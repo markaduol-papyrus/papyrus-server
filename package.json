@@ -1,0 +1,15 @@
+{
+  "name": "papyrus-server2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Aduol",
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^3.3.0",
+    "websocket": "^1.0.26"
+  }
+}
