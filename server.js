@@ -24,7 +24,7 @@ class Server {
 
   start() {
     const httpServer = http.createServer((req, res) => {
-      log('Received request for ' + request.url);
+      log('Received request for: ' + request.url);
       res.writeHead(404);
       res.end()
     });
@@ -40,7 +40,7 @@ class Server {
     });
 
     wsServer.on('request', (req) => {
-      if (!originIsAllowed(req.origin)) {
+      if (!this.originIsAllowed(req.origin)) {
         req.reject();
         log('Connection from ' + req.origin + ' rejected');
         return;
