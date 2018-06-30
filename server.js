@@ -14,6 +14,7 @@ function logError(error) {
 function log(error) {
   console.log('SERVER: ' + error);
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 
 class Server {
@@ -53,7 +54,6 @@ class Server {
       // Create a unique peer ID for the connecting peer. The ID remains the
       // same for the entire session of connection to the server.
       const peerId = uuid();
-      this.connectionArray.set(peerId, connection);
 
       // Inform the connecting peer of its new ID and wait for acknowledgement.
       let msg = {
@@ -61,6 +61,7 @@ class Server {
         createdByServer: true,
         assignedPeerId: peerId,
       };
+      log('Assigning remote peer ID: ' + peerId);
       connection.sendUTF(JSON.stringify(msg));
 
       // Setup handler for messages received from the peer over the connection
@@ -73,6 +74,10 @@ class Server {
 
           switch (msg.type) {
             case MessageTypes.ACCEPTED_PEER_ID:
+              log('Registering peer with ID: ' + msg.senderPeerId);
+              if (_peerIdNotChangedByPeer(peerId, msg.senderPeerId)) {
+                this.connectionArray.set(msg.senderPeerId, connection);
+              }
               break;
             default:
               logError('Unrecognized message type: ' + msg.type);
@@ -101,4 +106,17 @@ class Server {
     connection.sendUTF(msgString);
   }
 }
+
+////////////////////////////// HELPER FUNCTIONS ////////////////////////////////
+
+function _peerIdNotChangedByPeer(correctPeerId, peerId) {
+  if (correctPeerId !== peerId) {
+    const errMessage = `Assigned peer ID ${correctPeerId} but received peer`;
+    errMessage += ` ID: ${peerId}. Unable to register peer connection`;
+    logError(errMessage);
+    return false;
+  }
+  return true;
+}
+
 module.exports = Server
