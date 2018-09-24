@@ -17,5 +17,9 @@
     "Collaborative-Editor"
   ],
   "author": "Mark Aduol",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "mongoose": "^5.1.7"
+  }
 }
